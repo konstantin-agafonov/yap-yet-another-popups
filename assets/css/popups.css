@@ -3,7 +3,7 @@
  *
  * @package YAP_Yet_Another_Popups
  *
- * Copyright (C) 2024 YAP - Yet Another Popups
+ * Copyright (C) 2026 YAP - Yet Another Popups
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
