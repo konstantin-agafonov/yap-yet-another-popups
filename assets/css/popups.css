@@ -1,0 +1,120 @@
+/**
+ * Popup Styles
+ *
+ * @package YAP_Yet_Another_Popups
+ *
+ * Copyright (C) 2024 YAP - Yet Another Popups
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
+body.yapopups-popup-open {
+	overflow: hidden;
+}
+
+.yapopups-popup {
+	background: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+	opacity: 0;
+	transition: 0.2s ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 9999;
+	padding: 0 20px;
+}
+
+.yapopups-popup.active {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.yapopups-popup__body {
+	max-width: 460px;
+	width: 100%;
+	max-height: 80vh;
+	overflow: hidden;
+	overflow-y: auto;
+	padding: 50px 30px;
+	background: #fff;
+	box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.15);
+	border-radius: 5px;
+	position: relative;
+}
+
+.yapopups-popup__body::-webkit-scrollbar {
+	display: none;
+}
+
+@media (max-width: 600px) {
+	.yapopups-popup__body {
+		padding: 50px 20px;
+	}
+}
+
+.yapopups-popup__body .yapopups-popup__close {
+	cursor: pointer;
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'%3E%3C/line%3E%3Cline x1='6' y1='6' x2='18' y2='18'%3E%3C/line%3E%3C/svg%3E");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	top: 20px;
+	right: 20px;
+	z-index: 10;
+}
+
+.yapopups-popup__body .yapopups-popup__close:hover {
+	opacity: 0.7;
+}
+
+.yapopups-popup__body form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.yapopups-popup__body form p {
+	margin: 0;
+}
+
+.yapopups-popup__body form .iti__country-list {
+	height: 100px;
+}
+
+.yapopups-popup__body form button {
+	width: 100%;
+	margin-top: 10px;
+}
+
+.yapopups-popup__body form .wpcf7-response-output {
+	margin: 0 !important;
+	font-size: 12px;
+}
+
+.yapopups-popup__title {
+	margin-top: 0;
+	margin-bottom: 20px;
+	font-size: 22px;
+	font-weight: 600;
+	color: #031b4e;
+}
