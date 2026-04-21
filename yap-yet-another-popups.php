@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: YAP - Yet Another Popups
- * Plugin URI: https://github.com/konstantin-agafonov/simple-popups
+ * Plugin URI: https://github.com/konstantin-agafonov/yap-yet-another-popups
  * Description: A simple plugin for creating and managing popup windows on your WordPress site.
  * Version: 1.0.0
  * Author: konstantin.agafonov@gmail.com
