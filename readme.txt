@@ -1,7 +1,8 @@
 === YAP - Yet Another Popups ===
 Contributors: konstantin1agafonov
+Donate link: https://boosty.to/konstantin1agafonov
 Tags: popup, modal, lightbox, overlay, notification
-Requires at least: 5.0
+Requires at least: 6.0
 Tested up to: 6.9
 Stable tag: 1.0.0
 Requires PHP: 7.4
@@ -26,13 +27,13 @@ This plugin provides a clean, lightweight solution for creating popups in WordPr
 
 = Support =
 
-If you want to buy me a coffee, write me a message to konstantin.agafonov@gmail.com
+If you want to buy me a coffee, write me a message to kagafonov2222@yandex.ru
 
 == Installation ==
 
 1. Upload the `yap-yet-another-popups` folder to `/wp-content/plugins/`
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to **Popups → Add New Popup** to create your first popup
+3. Go to **YAP - Yet Another Popups → Add New Popup** to create your first popup
 
 == Frequently Asked Questions ==
 
@@ -57,9 +58,3 @@ Yes! You can add any shortcode including Contact Form 7 in the popup content edi
 = Can I customize the popup styles? =
 
 Yes, override the CSS classes in your theme's stylesheet. See the Customization section in the plugin settings page.
-
-== Screenshots ==
-
-1. Popup creation screen in WordPress admin
-2. Popup settings page with usage instructions
-3. Example popup displayed on frontend
