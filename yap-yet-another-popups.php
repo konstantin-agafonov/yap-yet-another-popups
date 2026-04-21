@@ -4,12 +4,12 @@
  * Plugin URI: https://github.com/konstantin-agafonov/yap-yet-another-popups
  * Description: A simple plugin for creating and managing popup windows on your WordPress site.
  * Version: 1.0.0
- * Author: konstantin.agafonov@gmail.com
- * Author URI: https://t.me/konstantin_agafonov
+ * Author: kagafonov2222@yandex.ru
+ * Author URI: https://x.com/K0HCTAHTIH
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: yap-yet-another-popups
- * Requires at least: 5.0
+ * Requires at least: 6.0
  * Requires PHP: 7.4
  *
  * Copyright (C) 2024 YAP - Yet Another Popups
