@@ -23,7 +23,7 @@
 (function($) {
 	'use strict';
 
-	var yapopupsData = window.yapopupsData || { debug: false };
+	const yapopupsData = window.yapopupsData || { debug: false };
 
 	function log() {
 		if (yapopupsData.debug && window.console && window.console.log) {
@@ -35,13 +35,13 @@
 	function yapopupsPopup() {
 		// Get scrollbar width
 		function getScrollbarWidth() {
-			var outer = document.createElement('div');
+			const outer = document.createElement('div');
 			outer.style.visibility = 'hidden';
 			outer.style.overflow = 'scroll';
 			document.body.appendChild(outer);
-			var inner = document.createElement('div');
+			const inner = document.createElement('div');
 			outer.appendChild(inner);
-			var scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+			const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
 			outer.parentNode.removeChild(outer);
 			return scrollbarWidth;
 		}
@@ -50,14 +50,14 @@
 		function openPopup( popupId ) {
 			log('[YAPopups] Opening popup:', popupId);
 
-			var $popup = $(popupId);
+			const $popup = $(popupId);
 			if ($popup.length === 0) {
 				log('[YAPopups] Popup not found:', popupId);
 				return;
 			}
 
 			// Add scrollbar compensation to prevent page shift
-			var scrollbarWidth = getScrollbarWidth();
+			const scrollbarWidth = getScrollbarWidth();
 			$('body').css('padding-right', scrollbarWidth + 'px');
 			$('body').addClass('yapopups-popup-open');
 
@@ -75,7 +75,7 @@
 		function closePopup( popupId ) {
 			log('[YAPopups] Closing popup:', popupId);
 
-			var $popup = $(popupId);
+			const $popup = $(popupId);
 			$popup.removeClass('active');
 			$('body').removeClass('yapopups-popup-open');
 			$('body').css('padding-right', '');
@@ -91,13 +91,13 @@
 		$(document).on('click', 'a[href*="#yapopup"]', function(e) {
 			log('[YAPopups] Anchor clicked:', $(this).attr('href'));
 
-			var href = $(this).attr('href');
+			const href = $(this).attr('href');
 			if (!href) {
 				return;
 			}
 
-			var $target = $(href);
-			var elementById = document.getElementById(href.substring(1));
+			const $target = $(href);
+			const elementById = document.getElementById(href.substring(1));
 
 			if ($target.length && $target.hasClass('yapopups-popup')) {
 				e.preventDefault();
@@ -127,10 +127,10 @@
 		// Check hash on page load
 		function checkHash() {
 			log('[YAPopups] Checking hash');
-			var hash = window.location.hash;
+			const hash = window.location.hash;
 			if (hash && hash.startsWith('#yapopup')) {
 				log('[YAPopups] Hash matches popup:', hash);
-				var $popup = $(hash);
+				const $popup = $(hash);
 				if ($popup.length && $popup.hasClass('yapopups-popup')) {
 					openPopup(hash);
 				}
