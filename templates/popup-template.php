@@ -28,12 +28,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 $yapopups_popup_slug     = YAPOPUPS_CPT_SLUG . $popup->ID;
 $yapopups_popup_title    = get_the_title( $popup->ID );
 $yapopups_popup_content  = get_the_content( $popup->ID );
+$yapopups_output_titles  = get_option( 'yapopups_output_titles', true );
 ?>
 
 <div id="<?php echo esc_attr( $yapopups_popup_slug ); ?>" class="yapopups-popup">
 	<div class="yapopups-popup__body">
 		<div class="yapopups-popup__close"></div>
-		<?php if ( $yapopups_popup_title ) : ?>
+		<?php if ( $yapopups_output_titles && $yapopups_popup_title ) : ?>
 			<h3 class="yapopups-popup__title"><?php echo esc_html( $yapopups_popup_title ); ?></h3>
 		<?php endif; ?>
 		<div class="yapopups-popup__content">

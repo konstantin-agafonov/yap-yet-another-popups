@@ -4,7 +4,7 @@ Donate link: https://boosty.to/konstantin1agafonov
 Tags: popup, modal, lightbox, overlay, notification
 Requires at least: 6.0
 Tested up to: 6.9
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -58,3 +58,21 @@ Yes! You can add any shortcode including Contact Form 7 in the popup content edi
 = Can I customize the popup styles? =
 
 Yes, override the CSS classes in your theme's stylesheet. See the Customization section in the plugin settings page.
+
+== Upgrade Notice ==
+
+= 1.0.1 =
+Added "Output popups titles" setting to optionally hide popup titles. Added "Remove plugin data on uninstall" setting to optionally remove plugin data on uninstall.
+
+= 1.0.0 =
+Initial version.
+
+== Changelog ==
+
+= 1.0.1 =
+* Added "Output popups titles" setting with checkbox to optionally display/hide popup titles
+* Added "Remove plugin data on uninstall" setting with checkbox to optionally remove plugin data on uninstall
+* Minor bug fixes
+
+= 1.0.0 =
+Initial version.

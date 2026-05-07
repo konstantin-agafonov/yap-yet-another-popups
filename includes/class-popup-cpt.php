@@ -60,8 +60,8 @@ class YAPOPUPS_Popup_CPT {
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Page comparison is safe, no form data processing.
 		if ( isset( $_GET['page'] ) && 'yapopups-settings' === $_GET['page'] ) {
-			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Internal URL construction.
-			$submenu_file = 'edit.php?post_type=' . YAPOPUPS_CPT_SLUG . '&page=yapopups-settings';
+			$submenu_file = 'yapopups-settings';
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Internal URL construction.
 			$parent_file  = 'edit.php?post_type=' . YAPOPUPS_CPT_SLUG;
 		}
 
