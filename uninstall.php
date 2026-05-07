@@ -25,6 +25,11 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
+// Check if plugin data removal is enabled
+if ( ! get_option( 'yapopups_remove_data_on_uninstall', false ) ) {
+	return;
+}
+
 define( 'YAPOPUPS_CPT_SLUG', 'yapopup' );
 
 // Delete all popup posts.
@@ -45,3 +50,4 @@ foreach ( $yapopups_popups as $yapopups_popup_id ) {
 delete_option( 'yapopups_enable' );
 delete_option( 'yapopups_debug_mode' );
 delete_option( 'yapopups_rules_flushed' );
+delete_option( 'yapopups_remove_data_on_uninstall' );

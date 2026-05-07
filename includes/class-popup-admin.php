@@ -76,6 +76,16 @@ class YAPOPUPS_Popup_Admin {
 			)
 		);
 
+		register_setting(
+			'yapopups_settings_group',
+			'yapopups_remove_data_on_uninstall',
+			array(
+				'type'              => 'boolean',
+				'sanitize_callback' => 'rest_sanitize_boolean',
+				'default'           => false,
+			)
+		);
+
 		add_settings_section(
 			'yapopups_general_section',
 			__( 'General Settings', 'yap-yet-another-popups' ),
@@ -95,6 +105,14 @@ class YAPOPUPS_Popup_Admin {
 			'yapopups_debug_mode',
 			__( 'Debug Mode', 'yap-yet-another-popups' ),
 			array( $this, 'render_debug_field' ),
+			'yapopups_settings_group',
+			'yapopups_general_section'
+		);
+
+		add_settings_field(
+			'yapopups_remove_data_on_uninstall',
+			__( 'Remove plugin data on uninstall', 'yap-yet-another-popups' ),
+			array( $this, 'render_remove_data_on_uninstall_field' ),
 			'yapopups_settings_group',
 			'yapopups_general_section'
 		);
@@ -139,6 +157,24 @@ class YAPOPUPS_Popup_Admin {
 		/>
 		<label for="yapopups_debug_mode">
 			<?php esc_html_e( 'Enable debug logging in browser console', 'yap-yet-another-popups' ); ?>
+		</label>
+		<?php
+	}
+
+	/**
+	 * Render remove data on uninstall field
+	 */
+	public function render_remove_data_on_uninstall_field(): void {
+		$value = get_option( 'yapopups_remove_data_on_uninstall', false );
+		?>
+		<input type="checkbox"
+			   id="yapopups_remove_data_on_uninstall"
+			   name="yapopups_remove_data_on_uninstall"
+			   value="1"
+			   <?php checked( $value, true ); ?>
+		/>
+		<label for="yapopups_remove_data_on_uninstall">
+			<?php esc_html_e( 'Delete all popup posts and plugin settings when uninstalling the plugin', 'yap-yet-another-popups' ); ?>
 		</label>
 		<?php
 	}
