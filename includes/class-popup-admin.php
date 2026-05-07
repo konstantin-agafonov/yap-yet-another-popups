@@ -36,6 +36,7 @@ class YAPOPUPS_Popup_Admin {
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ), 20 );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_filter( 'plugin_action_links_' . YAPOPUPS_PLUGIN_BASENAME, array( $this, 'add_plugin_action_links' ) );
+		add_action( 'admin_notices', array( $this, 'settings_notice' ) );
 	}
 
 	/**
@@ -119,6 +120,20 @@ class YAPOPUPS_Popup_Admin {
 	}
 
 	/**
+	 * Settings notice callback
+	 */
+	public function settings_notice(): void {
+		if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) {
+			add_settings_error(
+				'yapopups_settings_group',
+				'yapopups_settings_saved',
+				__( 'Settings saved.', 'yap-yet-another-popups' ),
+				'updated'
+			);
+		}
+	}
+
+	/**
 	 * Section callback
 	 */
 	public function render_section_callback(): void {
@@ -186,6 +201,10 @@ class YAPOPUPS_Popup_Admin {
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+
+			<?php
+			settings_errors( 'yapopups_settings_group' );
+			?>
 
 			<form action="options.php" method="post">
 				<?php
