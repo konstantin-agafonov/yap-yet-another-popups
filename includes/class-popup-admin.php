@@ -36,6 +36,7 @@ class YAPOPUPS_Popup_Admin {
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ), 20 );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_filter( 'plugin_action_links_' . YAPOPUPS_PLUGIN_BASENAME, array( $this, 'add_plugin_action_links' ) );
+		add_action( 'admin_notices', array( $this, 'settings_notice' ) );
 	}
 
 	/**
@@ -76,6 +77,26 @@ class YAPOPUPS_Popup_Admin {
 			)
 		);
 
+		register_setting(
+			'yapopups_settings_group',
+			'yapopups_remove_data_on_uninstall',
+			array(
+				'type'              => 'boolean',
+				'sanitize_callback' => 'rest_sanitize_boolean',
+				'default'           => false,
+			)
+		);
+
+		register_setting(
+			'yapopups_settings_group',
+			'yapopups_output_titles',
+			array(
+				'type'              => 'boolean',
+				'sanitize_callback' => 'rest_sanitize_boolean',
+				'default'           => true,
+			)
+		);
+
 		add_settings_section(
 			'yapopups_general_section',
 			__( 'General Settings', 'yap-yet-another-popups' ),
@@ -98,6 +119,36 @@ class YAPOPUPS_Popup_Admin {
 			'yapopups_settings_group',
 			'yapopups_general_section'
 		);
+
+		add_settings_field(
+			'yapopups_remove_data_on_uninstall',
+			__( 'Remove plugin data on uninstall', 'yap-yet-another-popups' ),
+			array( $this, 'render_remove_data_on_uninstall_field' ),
+			'yapopups_settings_group',
+			'yapopups_general_section'
+		);
+
+		add_settings_field(
+			'yapopups_output_titles',
+			__( 'Output popups titles', 'yap-yet-another-popups' ),
+			array( $this, 'render_output_titles_field' ),
+			'yapopups_settings_group',
+			'yapopups_general_section'
+		);
+	}
+
+	/**
+	 * Settings notice callback
+	 */
+	public function settings_notice(): void {
+		if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) {
+			add_settings_error(
+				'yapopups_settings_group',
+				'yapopups_settings_saved',
+				__( 'Settings saved.', 'yap-yet-another-popups' ),
+				'updated'
+			);
+		}
 	}
 
 	/**
@@ -112,17 +163,24 @@ class YAPOPUPS_Popup_Admin {
 	 */
 	public function render_enable_field(): void {
 		$value = get_option( 'yapopups_enable', true );
-		?>
-		<input type="checkbox"
-			   id="yapopups_enable"
-			   name="yapopups_enable"
-			   value="1"
-			   <?php checked( $value, true ); ?>
-		/>
-		<label for="yapopups_enable">
-			<?php esc_html_e( 'Enable popup functionality on the frontend', 'yap-yet-another-popups' ); ?>
-		</label>
-		<?php
+		$this->render_checkbox_template(
+			'yapopups_enable',
+			'yapopups_enable',
+			$value,
+			__( 'Enable popup functionality on the frontend', 'yap-yet-another-popups' )
+		);
+	}
+
+	/**
+	 * Render checkbox template
+	 *
+	 * @param string $id    Field ID.
+	 * @param string $name  Field name.
+	 * @param bool   $value Whether checked.
+	 * @param string $label Label text.
+	 */
+	private function render_checkbox_template( $id, $name, $value, $label ): void {
+		include YAPOPUPS_PLUGIN_DIR . 'templates/option-checkbox.php';
 	}
 
 	/**
@@ -130,17 +188,38 @@ class YAPOPUPS_Popup_Admin {
 	 */
 	public function render_debug_field(): void {
 		$value = get_option( 'yapopups_debug_mode', false );
-		?>
-		<input type="checkbox"
-			   id="yapopups_debug_mode"
-			   name="yapopups_debug_mode"
-			   value="1"
-			   <?php checked( $value, true ); ?>
-		/>
-		<label for="yapopups_debug_mode">
-			<?php esc_html_e( 'Enable debug logging in browser console', 'yap-yet-another-popups' ); ?>
-		</label>
-		<?php
+		$this->render_checkbox_template(
+			'yapopups_debug_mode',
+			'yapopups_debug_mode',
+			$value,
+			__( 'Enable debug logging in browser console', 'yap-yet-another-popups' )
+		);
+	}
+
+	/**
+	 * Render remove data on uninstall field
+	 */
+	public function render_remove_data_on_uninstall_field(): void {
+		$value = get_option( 'yapopups_remove_data_on_uninstall', false );
+		$this->render_checkbox_template(
+			'yapopups_remove_data_on_uninstall',
+			'yapopups_remove_data_on_uninstall',
+			$value,
+			__( 'Delete all popup posts and plugin settings when uninstalling the plugin', 'yap-yet-another-popups' )
+		);
+	}
+
+	/**
+	 * Render output titles field
+	 */
+	public function render_output_titles_field(): void {
+		$value = get_option( 'yapopups_output_titles', true );
+		$this->render_checkbox_template(
+			'yapopups_output_titles',
+			'yapopups_output_titles',
+			$value,
+			__( 'Output popups titles', 'yap-yet-another-popups' )
+		);
 	}
 
 	/**
@@ -150,6 +229,10 @@ class YAPOPUPS_Popup_Admin {
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+
+			<?php
+			settings_errors( 'yapopups_settings_group' );
+			?>
 
 			<form action="options.php" method="post">
 				<?php
