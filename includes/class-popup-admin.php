@@ -87,6 +87,16 @@ class YAPOPUPS_Popup_Admin {
 			)
 		);
 
+		register_setting(
+			'yapopups_settings_group',
+			'yapopups_output_titles',
+			array(
+				'type'              => 'boolean',
+				'sanitize_callback' => 'rest_sanitize_boolean',
+				'default'           => true,
+			)
+		);
+
 		add_settings_section(
 			'yapopups_general_section',
 			__( 'General Settings', 'yap-yet-another-popups' ),
@@ -114,6 +124,14 @@ class YAPOPUPS_Popup_Admin {
 			'yapopups_remove_data_on_uninstall',
 			__( 'Remove plugin data on uninstall', 'yap-yet-another-popups' ),
 			array( $this, 'render_remove_data_on_uninstall_field' ),
+			'yapopups_settings_group',
+			'yapopups_general_section'
+		);
+
+		add_settings_field(
+			'yapopups_output_titles',
+			__( 'Output popups titles', 'yap-yet-another-popups' ),
+			array( $this, 'render_output_titles_field' ),
 			'yapopups_settings_group',
 			'yapopups_general_section'
 		);
@@ -190,6 +208,24 @@ class YAPOPUPS_Popup_Admin {
 		/>
 		<label for="yapopups_remove_data_on_uninstall">
 			<?php esc_html_e( 'Delete all popup posts and plugin settings when uninstalling the plugin', 'yap-yet-another-popups' ); ?>
+		</label>
+		<?php
+	}
+
+	/**
+	 * Render output titles field
+	 */
+	public function render_output_titles_field(): void {
+		$value = get_option( 'yapopups_output_titles', true );
+		?>
+		<input type="checkbox"
+			   id="yapopups_output_titles"
+			   name="yapopups_output_titles"
+			   value="1"
+			   <?php checked( $value, true ); ?>
+		/>
+		<label for="yapopups_output_titles">
+			<?php esc_html_e( 'Output popups titles', 'yap-yet-another-popups' ); ?>
 		</label>
 		<?php
 	}

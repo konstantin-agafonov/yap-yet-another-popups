@@ -51,3 +51,4 @@ delete_option( 'yapopups_enable' );
 delete_option( 'yapopups_debug_mode' );
 delete_option( 'yapopups_rules_flushed' );
 delete_option( 'yapopups_remove_data_on_uninstall' );
+delete_option( 'yapopups_output_titles' );
