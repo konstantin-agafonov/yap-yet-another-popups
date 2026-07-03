@@ -1,78 +1,33 @@
-=== YAP - Yet Another Popups ===
-Contributors: konstantin1agafonov
-Donate link: https://boosty.to/konstantin1agafonov
-Tags: popup, modal, lightbox, overlay, notification
+=== My Plugin ===
+Contributors: yourname
+Tags: starter, template, boilerplate, CPT, settings
 Requires at least: 6.0
 Tested up to: 6.9
-Stable tag: 1.0.1
-Requires PHP: 7.4
+Requires PHP: 8.0
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A simple plugin for creating and managing popup windows on your WordPress site.
+A WordPress plugin starter template with CPT, settings page, and frontend assets.
 
 == Description ==
 
-This plugin provides a clean, lightweight solution for creating popups in WordPress. It uses a custom post type to manage popups and displays them in the site footer. Popups can be triggered via anchor links or JavaScript.
+A starter boilerplate for building WordPress plugins. Includes:
 
-= Features =
-
-* Create unlimited popups via WordPress admin
-* Custom post type for easy management
-* Support for shortcodes (Contact Form 7, etc.)
-* Responsive design
-* Click outside or × button to close
-* URL hash-based triggering
-* Scroll lock when popup is open
-
-= Support =
-
-If you want to buy me a coffee, write me a message to kagafonov2222@yandex.ru
+* Custom Post Type registration with meta box and admin columns
+* Settings page with various field types (checkbox, text, number, select, color, textarea)
+* Frontend asset enqueuing (CSS + JS)
+* Frontend rendering via wp_footer
+* Uninstall handler with data cleanup options
 
 == Installation ==
 
-1. Upload the `yap-yet-another-popups` folder to `/wp-content/plugins/`
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to **YAP - Yet Another Popups → Add New Popup** to create your first popup
-
-== Frequently Asked Questions ==
-
-= How do I create a popup? =
-
-1. In WordPress admin, go to **Popups → Add New Popup**
-2. Enter a title (displayed as popup heading)
-3. Add content in the editor (supports HTML and shortcodes)
-4. Click **Publish**
-5. Copy the **Popup Slug** from the meta box (e.g., `#yapopup123`)
-
-= How do I open a popup? =
-
-Add a link with the href equal to the popup slug:
-
-`<a href="#yapopup123">Open Popup</a>`
-
-= Does this work with Contact Form 7? =
-
-Yes! You can add any shortcode including Contact Form 7 in the popup content editor.
-
-= Can I customize the popup styles? =
-
-Yes, override the CSS classes in your theme's stylesheet. See the Customization section in the plugin settings page.
-
-== Upgrade Notice ==
-
-= 1.0.1 =
-Added "Output popups titles" setting to optionally hide popup titles. Added "Remove plugin data on uninstall" setting to optionally remove plugin data on uninstall.
-
-= 1.0.0 =
-Initial version.
+1. Upload the `my-plugin` folder to `/wp-content/plugins/`
+2. Activate the plugin through the Plugins screen
+3. Go to My Plugin → Add New to create your first item
+4. Configure settings under My Plugin → Settings
 
 == Changelog ==
 
-= 1.0.1 =
-* Added "Output popups titles" setting with checkbox to optionally display/hide popup titles
-* Added "Remove plugin data on uninstall" setting with checkbox to optionally remove plugin data on uninstall
-* Minor bug fixes
-
 = 1.0.0 =
-Initial version.
+* Initial release

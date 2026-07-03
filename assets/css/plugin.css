@@ -1,0 +1,91 @@
+:root {
+    --myplugin-accent: #0073aa;
+    --myplugin-z-index: 9999;
+    --myplugin-transition: 0.2s ease;
+}
+
+.myplugin-item {
+    display: none;
+}
+
+.myplugin-item--inline {
+    display: block;
+    padding: 1em;
+    margin: 1em 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f9f9f9;
+}
+
+.myplugin-item--modal,
+.myplugin-item--popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: var(--myplugin-z-index);
+    background: rgba(0, 0, 0, 0.6);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--myplugin-transition);
+}
+
+.myplugin-item--modal.active,
+.myplugin-item--popup.active {
+    display: flex;
+    opacity: 1;
+}
+
+.myplugin-item__body {
+    position: relative;
+    background: #fff;
+    border-radius: 6px;
+    padding: 2em;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.myplugin-item__close {
+    position: absolute;
+    top: 0.5em;
+    right: 0.75em;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    line-height: 1;
+    cursor: pointer;
+    color: #666;
+    padding: 0.25em;
+}
+
+.myplugin-item__close:hover {
+    color: #333;
+}
+
+.myplugin-item__title {
+    margin: 0 0 0.5em;
+    font-size: 1.25em;
+    color: var(--myplugin-accent);
+}
+
+.myplugin-item__content {
+    font-size: 1em;
+    line-height: 1.6;
+}
+
+body.myplugin-modal-open {
+    overflow: hidden;
+}
+
+@media (max-width: 600px) {
+    .myplugin-item__body {
+        width: 100%;
+        max-width: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+        padding: 1.5em;
+    }
+}

@@ -1,25 +1,26 @@
 <?php
 /**
- * Checkbox option template
+ * Checkbox field template.
  *
- * @package YAP_Yet_Another_Popups
+ * Variables set before include:
+ *   $args  - array with 'id', 'name', 'label'
+ *   $value - bool
  *
- * @var string $id    Field ID.
- * @var string $name  Field name.
- * @var bool   $value Whether checked.
- * @var string $label Label text.
+ * @package MyPlugin
  */
 
+declare( strict_types=1 );
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 ?>
-<input type="checkbox"
-	   id="<?php echo esc_attr( $id ); ?>"
-	   name="<?php echo esc_attr( $name ); ?>"
-	   value="1"
-	   <?php checked( $value, true ); ?>
-/>
-<label for="<?php echo esc_attr( $id ); ?>">
-	<?php echo esc_html( $label ); ?>
+<label>
+    <input type="checkbox"
+           id="<?php echo esc_attr( $args['id'] ); ?>"
+           name="<?php echo esc_attr( $args['name'] ); ?>"
+           value="1"
+        <?php checked( $value, true ); ?>
+    />
+    <?php echo esc_html( $args['label'] ?? '' ); ?>
 </label>

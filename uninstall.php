@@ -1,54 +1,53 @@
 <?php
 /**
- * Uninstall functionality for YAP - Yet Another Popups plugin.
+ * Uninstall handler.
  *
- * @package YAP_Yet_Another_Popups
+ * Removes plugin data (posts + options) if configured.
  *
- * Copyright (C) 2026 YAP - Yet Another Popups
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along
- * with this program; if not, write to the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * @package MyPlugin
  */
 
+declare( strict_types=1 );
+
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-	exit;
+    exit;
 }
 
-// Check if plugin data removal is enabled
-if ( ! get_option( 'yapopups_remove_data_on_uninstall', false ) ) {
-	return;
+$remove_data = (bool) get_option( 'myplugin_remove_data_on_uninstall', false );
+
+if ( ! $remove_data ) {
+    return;
 }
 
-define( 'YAPOPUPS_CPT_SLUG', 'yapopup' );
+if ( ! defined( 'MYPLUGIN_CPT_SLUG' ) ) {
+    define( 'MYPLUGIN_CPT_SLUG', 'myplugin_item' );
+}
 
-// Delete all popup posts.
-$yapopups_popups = get_posts(
-	array(
-		'post_type'      => YAPOPUPS_CPT_SLUG,
-		'post_status'    => 'any',
-		'posts_per_page' => -1,
-		'fields'         => 'ids',
-	)
+$items = get_posts(
+    [
+        'post_type'      => MYPLUGIN_CPT_SLUG,
+        'post_status'    => 'any',
+        'posts_per_page' => -1,
+        'fields'         => 'ids',
+    ]
 );
 
-foreach ( $yapopups_popups as $yapopups_popup_id ) {
-	wp_delete_post( $yapopups_popup_id, true );
+foreach ( $items as $item_id ) {
+    wp_delete_post( $item_id, true );
 }
 
-// Delete plugin options.
-delete_option( 'yapopups_enable' );
-delete_option( 'yapopups_debug_mode' );
-delete_option( 'yapopups_rules_flushed' );
-delete_option( 'yapopups_remove_data_on_uninstall' );
-delete_option( 'yapopups_output_titles' );
+$options = [
+    'myplugin_enable',
+    'myplugin_debug_mode',
+    'myplugin_heading_text',
+    'myplugin_items_per_page',
+    'myplugin_display_style',
+    'myplugin_accent_color',
+    'myplugin_custom_css',
+    'myplugin_rules_flushed',
+    'myplugin_remove_data_on_uninstall',
+];
+
+foreach ( $options as $option ) {
+    delete_option( $option );
+}
