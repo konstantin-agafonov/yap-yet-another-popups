@@ -51,6 +51,15 @@ class YAPOPUPS_Popup_Admin {
 			'yapopups-settings',
 			array( $this, 'render_settings_page' )
 		);
+
+		add_submenu_page(
+			'edit.php?post_type=' . YAPOPUPS_CPT_SLUG,
+			__( 'Popup Help', 'yap-yet-another-popups' ),
+			__( 'Help', 'yap-yet-another-popups' ),
+			'manage_options',
+			'yapopups-help',
+			array( $this, 'render_help_page' )
+		);
 	}
 
 	/**
@@ -241,13 +250,6 @@ class YAPOPUPS_Popup_Admin {
 				submit_button();
 				?>
 			</form>
-
-			<hr style="margin: 40px 0;" />
-
-			<h2><?php esc_html_e( 'How to Use Popups', 'yap-yet-another-popups' ); ?></h2>
-
-			<?php include YAPOPUPS_PLUGIN_DIR . 'templates/how-to-use-popups.php'; ?>
-
 			<?php if ( current_user_can( 'manage_options' ) ) : ?>
 			<hr style="margin: 40px 0;" />
 
@@ -279,6 +281,18 @@ class YAPOPUPS_Popup_Admin {
 				<?php endif; ?>
 			</div>
 			<?php endif; ?>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render help page
+	 */
+	public function render_help_page(): void {
+		?>
+		<div class="wrap">
+			<h1><?php esc_html_e( 'Popup Help', 'yap-yet-another-popups' ); ?></h1>
+			<?php include YAPOPUPS_PLUGIN_DIR . 'templates/how-to-use-popups.php'; ?>
 		</div>
 		<?php
 	}
