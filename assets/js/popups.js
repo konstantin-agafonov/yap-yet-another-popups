@@ -91,7 +91,7 @@
 		$(document).on('click', 'a[href*="#yapopup"]', function(e) {
 			log('[YAPopups] Anchor clicked:', $(this).attr('href'));
 
-			const href = $(this).attr('href');
+			const href = $(this).attr('href').trim();
 			if (!href) {
 				return;
 			}
@@ -99,11 +99,10 @@
 			const $target = $(href);
 			const elementById = document.getElementById(href.substring(1));
 
-			if ($target.length && $target.hasClass('yapopups-popup')) {
-				e.preventDefault();
-				e.stopPropagation();
-				openPopup(href);
-			} else if (elementById && elementById.classList.contains('yapopups-popup')) {
+			if (
+                ($target.length && $target.hasClass('yapopups-popup')) ||
+                (elementById && elementById.classList.contains('yapopups-popup'))
+            ) {
 				e.preventDefault();
 				e.stopPropagation();
 				openPopup(href);
