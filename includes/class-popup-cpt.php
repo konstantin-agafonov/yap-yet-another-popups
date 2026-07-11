@@ -59,9 +59,8 @@ class YAPOPUPS_Popup_CPT {
 		global $submenu_file;
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Page comparison is safe, no form data processing.
-		if ( isset( $_GET['page'] ) && 'yapopups-settings' === $_GET['page'] ) {
-			$submenu_file = 'yapopups-settings';
-            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Internal URL construction.
+		if ( isset( $_GET['page'] ) && in_array( $_GET['page'], array( 'yapopups-settings', 'yapopups-help' ), true ) ) {
+			$submenu_file = sanitize_text_field( wp_unslash( $_GET['page'] ) );
 			$parent_file  = 'edit.php?post_type=' . YAPOPUPS_CPT_SLUG;
 		}
 

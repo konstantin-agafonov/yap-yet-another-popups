@@ -31,67 +31,67 @@
 		}
 	}
 
-	// Popup functionality
+    // Get scrollbar width
+    function getScrollbarWidth() {
+        const outer = document.createElement('div');
+        outer.style.visibility = 'hidden';
+        outer.style.overflow = 'scroll';
+        document.body.appendChild(outer);
+        const inner = document.createElement('div');
+        outer.appendChild(inner);
+        const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+        outer.parentNode.removeChild(outer);
+        return scrollbarWidth;
+    }
+
+    // Function to open popup
+    function openPopup( popupId ) {
+        log('[YAPopups] Opening popup:', popupId);
+
+        const $popup = $(popupId);
+        if ($popup.length === 0) {
+            log('[YAPopups] Popup not found:', popupId);
+            return;
+        }
+
+        // Add scrollbar compensation to prevent page shift
+        const scrollbarWidth = getScrollbarWidth();
+        $('body').css('padding-right', scrollbarWidth + 'px');
+        $('body').addClass('yapopups-popup-open');
+
+        $popup.addClass('active');
+
+        log('[YAPopups] Popup opened:', popupId);
+
+        // Handler for closing popup
+        $popup.find('.yapopups-popup__close').off('click').on('click', function() {
+            closePopup(popupId);
+        });
+    }
+
+    // Function to close popup
+    function closePopup( popupId ) {
+        log('[YAPopups] Closing popup:', popupId);
+
+        const $popup = $(popupId);
+        $popup.removeClass('active');
+        $('body').removeClass('yapopups-popup-open');
+        $('body').css('padding-right', '');
+
+        log('[YAPopups] Popup closed:', popupId);
+
+        if (window.location.hash === popupId) {
+            history.pushState("", document.title, window.location.pathname + window.location.search);
+        }
+    }
+
+    // Popup functionality
 	function yapopupsPopup() {
-		// Get scrollbar width
-		function getScrollbarWidth() {
-			const outer = document.createElement('div');
-			outer.style.visibility = 'hidden';
-			outer.style.overflow = 'scroll';
-			document.body.appendChild(outer);
-			const inner = document.createElement('div');
-			outer.appendChild(inner);
-			const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
-			outer.parentNode.removeChild(outer);
-			return scrollbarWidth;
-		}
-
-		// Function to open popup
-		function openPopup( popupId ) {
-			log('[YAPopups] Opening popup:', popupId);
-
-			const $popup = $(popupId);
-			if ($popup.length === 0) {
-				log('[YAPopups] Popup not found:', popupId);
-				return;
-			}
-
-			// Add scrollbar compensation to prevent page shift
-			const scrollbarWidth = getScrollbarWidth();
-			$('body').css('padding-right', scrollbarWidth + 'px');
-			$('body').addClass('yapopups-popup-open');
-
-			$popup.addClass('active');
-
-			log('[YAPopups] Popup opened:', popupId);
-
-			// Handler for closing popup
-			$popup.find('.yapopups-popup__close').off('click').on('click', function() {
-				closePopup(popupId);
-			});
-		}
-
-		// Function to close popup
-		function closePopup( popupId ) {
-			log('[YAPopups] Closing popup:', popupId);
-
-			const $popup = $(popupId);
-			$popup.removeClass('active');
-			$('body').removeClass('yapopups-popup-open');
-			$('body').css('padding-right', '');
-
-			log('[YAPopups] Popup closed:', popupId);
-
-			if (window.location.hash === popupId) {
-				history.pushState("", document.title, window.location.pathname + window.location.search);
-			}
-		}
-
 		// Handler for opening popup via anchor links (using event delegation)
 		$(document).on('click', 'a[href*="#yapopup"]', function(e) {
 			log('[YAPopups] Anchor clicked:', $(this).attr('href'));
 
-			const href = $(this).attr('href');
+			const href = $(this).attr('href').trim();
 			if (!href) {
 				return;
 			}
@@ -99,11 +99,10 @@
 			const $target = $(href);
 			const elementById = document.getElementById(href.substring(1));
 
-			if ($target.length && $target.hasClass('yapopups-popup')) {
-				e.preventDefault();
-				e.stopPropagation();
-				openPopup(href);
-			} else if (elementById && elementById.classList.contains('yapopups-popup')) {
+			if (
+                ($target.length && $target.hasClass('yapopups-popup')) ||
+                (elementById && elementById.classList.contains('yapopups-popup'))
+            ) {
 				e.preventDefault();
 				e.stopPropagation();
 				openPopup(href);
